@@ -9,8 +9,7 @@ public class Main {
         List<Cours> assignerCours = new ArrayList<>() ;
         List<Cours> EtudiantCours = new ArrayList<>() ;
 
-        List<Paiement> paiements = new ArrayList<>();
-        List<Certification> certifications = new ArrayList<>();
+        int nextCertId = 1;
 
 
 
@@ -190,10 +189,67 @@ public class Main {
 
 
                 case 9 :
+                    System.out.println("Entrez l’ID de l’Etudiant : ");
+                    int idEtudiantPaiement = sc.nextInt();
+
+                    System.out.println("Entrez l’ID du cours :");
+                    int idCourPaiement = sc.nextInt();
+
+                    Etudiant etudiant = null ;
+                    Cours courPaiement = null ;
+                    for (Etudiant e : etudiants){
+                        if (e.getStudentId() == idEtudiantPaiement){
+                            etudiant = e ;
+                            break;
+                        }
+                    }
+
+                    for (Cours c : cours){
+                        if (c.getCourseId() == idCourPaiement){
+                            courPaiement = c ;
+                            break;
+                        }
+                    }
+
+                    if (etudiant != null && courPaiement !=null){
+                        System.out.print("Montant : ");
+                        double method = sc.nextDouble();
+                        sc.nextLine();
+                        System.out.print("Mode de paiement : ");
+                        String mode = sc.nextLine();
+                        Paiement.effectuerPaiement(method,mode,etudiant,courPaiement);
+                    }else {
+                        System.out.println("Étudiant ou cours introuvable !");
+                    }
 
                     break;
 
                 case 10 :
+                    System.out.print("ID étudiant : ");
+                    int idEt = sc.nextInt();
+                    System.out.print("ID cours : ");
+                    int IdCour = sc.nextInt();
+
+                    Etudiant E = null ;
+                    Cours C = null ;
+                    for (Etudiant e : etudiants){
+                        if (e.getStudentId() == idEt){
+                            E = e ;
+                            break;
+                        }
+                    }
+
+                    for (Cours c : cours){
+                        if (c.getCourseId() == IdCour){
+                            C = c ;
+                            break;
+                        }
+                    }
+                    if (E != null && C !=null){
+                       Certification.genererCertification(nextCertId++ ,E,C);
+                    }else {
+                        System.out.println("Étudiant ou cours introuvable !");
+                    }
 
                     break;
                 case 11 :
